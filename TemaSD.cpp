@@ -109,8 +109,8 @@ void SortingAlg::printVec()
 
 int SortingAlg::getMax()
 {
-    int maxx = -1;
-    for (int i = 0; i < sizeV; i++)
+    long long int maxx = -1;
+    for (long long int i = 0; i < sizeV; i++)
     {
         if (v[i] > maxx)
             maxx = v[i];
@@ -120,8 +120,8 @@ int SortingAlg::getMax()
 
 void SortingAlg::radixSort10()
 {
-    int maxx = getMax();
-    for (int exp = 1; maxx / exp > 0; exp *= 10)
+    long long int maxx = getMax();
+    for (long long int exp = 1; maxx / exp > 0; exp *= 10)
     {
         std::vector <long long int> res(sizeV);
         long long int i, fr[10] = {};
@@ -140,8 +140,8 @@ void SortingAlg::radixSort10()
 }
 
 void SortingAlg::radixSort256() {
-    int maxx = getMax();
-    int count = 0;
+    long long int maxx = getMax();
+    long long int count = 0;
     for (long long int exp = 1; maxx / exp > 0; exp = exp<<8)
     {
         std::vector <long long int> res(sizeV);
@@ -164,10 +164,10 @@ void SortingAlg::mergeSort(int left, int right)
 {
     if (left < right)
     {
-        int mid = (left + right) / 2;
+        long long int mid = (left + right) / 2;
         mergeSort(left, mid);
         mergeSort(mid + 1, right);
-        int i = left, j = mid + 1, k = 0;
+        long long int i = left, j = mid + 1, k = 0;
         while (i <= mid and j <= right)
             if (v[i] < v[j])
                temp[++k] = v[i++];
@@ -184,11 +184,11 @@ void SortingAlg::mergeSort(int left, int right)
 
 void SortingAlg::shellSort() 
 {
-    for (int gap = sizeV / 2; gap > 0; gap /= 2)
+    for (long long int gap = sizeV / 2; gap > 0; gap /= 2)
     {
-        for (int i = gap; i < sizeV; i++)
+        for (long long int i = gap; i < sizeV; i++)
         {
-            int copyEl = v[i], j = i;
+            long long int copyEl = v[i], j = i;
             while (j >= gap and v[j - gap] > copyEl) 
             {
                 v[j] = v[j - gap];
@@ -252,7 +252,7 @@ int SortingAlg::heap_pop()
 {
     if (v.size() == 0)
         return -1;
-    int top = v[0];
+    long long int top = v[0];
     v[0] = v[v.size() - 1];
     v.pop_back();
     descent(0);
@@ -262,7 +262,7 @@ int SortingAlg::heap_pop()
 void SortingAlg::heapSort() 
 {
     temp.clear();
-    for (int i = v.size() / 2; i >= 0; i--)
+    for (long long int i = v.size() / 2; i >= 0; i--)
         descent(i);
     while (v.size()) 
     {
@@ -302,7 +302,7 @@ void SortingAlg::quickSort(int left, int right)
 {
     if (left >= 0 and right >= 0 and left < right)
     {
-        int p = SortingAlg::partitions(left, right);
+        long long int p = SortingAlg::partitions(left, right);
         quickSort(left, p);
         quickSort(p + 1, right);
     }
