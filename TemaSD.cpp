@@ -18,7 +18,7 @@ class SortingAlg
     std::vector<long long> v;
     std::vector <long long> temp;
 public:
-    SortingAlg(int);
+    SortingAlg(int,long long);
     SortingAlg(const SortingAlg&);
 
     void printVec();
@@ -49,9 +49,11 @@ int random()
     return (rand() % 10000) * (rand() % 10000);
 }
 
-SortingAlg::SortingAlg(int option = 0)
+SortingAlg::SortingAlg(int option = 0, long long s = (rand() % 1000) * (rand() % 1000))
 {
-    sizeV = (rand() % 1000) * (rand() % 1000);
+    while (s == 0)
+        s = (rand() % 1000) * (rand() % 1000);
+    sizeV = s;
     v.resize(sizeV);
     temp.resize(sizeV + 1, 0);
     if (option == 0)
