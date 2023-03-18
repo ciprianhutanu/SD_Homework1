@@ -14,9 +14,9 @@ std::ofstream o;
 
 class SortingAlg
 {
-    long long int sizeV;
-    std::vector<long long int> v;
-    std::vector <long long int> temp;
+    long long sizeV;
+    std::vector<long long> v;
+    std::vector <long long> temp;
 public:
     SortingAlg(int);
     SortingAlg(const SortingAlg&);
@@ -51,38 +51,38 @@ int random()
 
 SortingAlg::SortingAlg(int option = 0)
 {
-    sizeV = (rand()%1000) * (rand()%1000);
+    sizeV = (rand() % 1000) * (rand() % 1000);
     v.resize(sizeV);
     temp.resize(sizeV + 1, 0);
-    if(option == 0)
+    if (option == 0)
         std::generate(v.begin(), v.end(), random);
-    else 
+    else
     {
         v.clear();
         if (option == 1)
         {
-            int x = sizeV;
+            long long x = sizeV;
             while (x > 0)
                 v.push_back(sizeV), x--;
         }
         else if (option == 2)
         {
-            int x = sizeV;
+            long long x = sizeV;
             while (x > 0)
                 v.push_back(x), x--;
         }
         else if (option == 3)
         {
-            int x = 0;
+            long long x = 0;
             while (x < sizeV)
                 v.push_back(x), x++;
         }
         else if (option == 4)
         {
             in.open("input.in");
-            long long int x;
+            long long x;
             in >> sizeV;
-            for (long long int i = 0; i < sizeV; i++)
+            for (long long i = 0; i < sizeV; i++)
                 in >> x, v.push_back(x);
             in.close();
         }
@@ -109,8 +109,8 @@ void SortingAlg::printVec()
 
 int SortingAlg::getMax()
 {
-    long long int maxx = -1;
-    for (long long int i = 0; i < sizeV; i++)
+   long long maxx = -1;
+    for (long long i = 0; i < sizeV; i++)
     {
         if (v[i] > maxx)
             maxx = v[i];
@@ -120,11 +120,11 @@ int SortingAlg::getMax()
 
 void SortingAlg::radixSort10()
 {
-    long long int maxx = getMax();
-    for (long long int exp = 1; maxx / exp > 0; exp *= 10)
+   long long maxx = getMax();
+    for (long long exp = 1; maxx / exp > 0; exp *= 10)
     {
-        std::vector <long long int> res(sizeV);
-        long long int i, fr[10] = {};
+        std::vector <long long> res(sizeV);
+       long long i, fr[10] = {};
         for (auto el : v)
             fr[(el / exp) % 10]++;
         for (i = 1; i < 10; i++)
@@ -140,12 +140,12 @@ void SortingAlg::radixSort10()
 }
 
 void SortingAlg::radixSort256() {
-    long long int maxx = getMax();
-    long long int count = 0;
-    for (long long int exp = 1; maxx / exp > 0; exp = exp<<8)
+   long long maxx = getMax();
+   long long count = 0;
+    for (long long exp = 1; maxx / exp > 0; exp = exp << 8)
     {
-        std::vector <long long int> res(sizeV);
-        long long int i, fr[256] = {};
+        std::vector <long long> res(sizeV);
+       long long i, fr[256] = {};
         for (auto el : v)
             fr[(el / exp) % 256]++;
         for (i = 1; i < 256; i++)
@@ -164,13 +164,13 @@ void SortingAlg::mergeSort(int left, int right)
 {
     if (left < right)
     {
-        long long int mid = (left + right) / 2;
+       long long mid = (left + right) / 2;
         mergeSort(left, mid);
         mergeSort(mid + 1, right);
-        long long int i = left, j = mid + 1, k = 0;
+       long long i = left, j = mid + 1, k = 0;
         while (i <= mid and j <= right)
             if (v[i] < v[j])
-               temp[++k] = v[i++];
+                temp[++k] = v[i++];
             else
                 temp[++k] = v[j++];
         while (i <= mid)
@@ -182,14 +182,14 @@ void SortingAlg::mergeSort(int left, int right)
     }
 }
 
-void SortingAlg::shellSort() 
+void SortingAlg::shellSort()
 {
-    for (long long int gap = sizeV / 2; gap > 0; gap /= 2)
+    for (long long gap = sizeV / 2; gap > 0; gap /= 2)
     {
-        for (long long int i = gap; i < sizeV; i++)
+        for (long long i = gap; i < sizeV; i++)
         {
-            long long int copyEl = v[i], j = i;
-            while (j >= gap and v[j - gap] > copyEl) 
+           long long copyEl = v[i], j = i;
+            while (j >= gap and v[j - gap] > copyEl)
             {
                 v[j] = v[j - gap];
                 j -= gap;
@@ -202,7 +202,7 @@ void SortingAlg::shellSort()
 /*void SortingAlg::bubbleSort()
 {
     bool done = 0;
-    long long int i, aux;
+   long long i, aux;
     while (done == 0)
     {
         done = 1;
@@ -221,8 +221,8 @@ void SortingAlg::shellSort()
 
 void SortingAlg::descent(int pos)
 {
-    long long int aux;
-    if ( 2 * pos + 1 >= v.size())
+   long long aux;
+    if (2 * pos + 1 >= v.size())
         return;
     if ((2 * pos + 2 == v.size()) or v[2 * pos + 1] < v[2 * pos + 2])
         if (v[2 * pos + 1] < v[pos])
@@ -252,19 +252,19 @@ int SortingAlg::heap_pop()
 {
     if (v.size() == 0)
         return -1;
-    long long int top = v[0];
+   long long top = v[0];
     v[0] = v[v.size() - 1];
     v.pop_back();
     descent(0);
     return 0;
 }
 
-void SortingAlg::heapSort() 
+void SortingAlg::heapSort()
 {
     temp.clear();
-    for (long long int i = v.size() / 2; i >= 0; i--)
+    for (long long i = v.size() / 2; i >= 0; i--)
         descent(i);
-    while (v.size()) 
+    while (v.size())
     {
         temp.push_back(v[0]);
         heap_pop();
@@ -275,7 +275,7 @@ void SortingAlg::heapSort()
 
 int SortingAlg::partitions(int left, int right)
 {
-    long long int piv[3] = { v[left + (rand() % (right - left + 1))],v[left + (rand() % (right - left + 1))],v[left + (rand() % (right - left + 1))] }, pivot, i = left - 1, j = right + 1, aux;
+   long long piv[3] = { v[left + (rand() % (right - left + 1))],v[left + (rand() % (right - left + 1))],v[left + (rand() % (right - left + 1))] }, pivot, i = left - 1, j = right + 1, aux;
     if ((piv[0] <= piv[1] and piv[1] <= piv[2]) or (piv[2] <= piv[1] and piv[1] <= piv[0]))
         pivot = piv[1];
     else if ((piv[1] <= piv[0] and piv[0] <= piv[2]) or (piv[2] <= piv[0] and piv[0] <= piv[1]))
@@ -302,7 +302,7 @@ void SortingAlg::quickSort(int left, int right)
 {
     if (left >= 0 and right >= 0 and left < right)
     {
-        long long int p = SortingAlg::partitions(left, right);
+       long long p = SortingAlg::partitions(left, right);
         quickSort(left, p);
         quickSort(p + 1, right);
     }
@@ -316,12 +316,12 @@ bool SortingAlg::operator== (const SortingAlg& obj)
         return false;
 }
 
-bool SortingAlg::sortchecker() 
+bool SortingAlg::sortchecker()
 {
     if (v.size() != sizeV)
         return false;
     else
-        for (long long int i = 0; i < sizeV - 1; i++)
+        for (long long i = 0; i < sizeV - 1; i++)
             if (v[i] > v[i + 1])
                 return false;
     return true;
@@ -358,7 +358,7 @@ void results()
                 sm = diff2.count(), ws = j;
 
             auto start3 = std::chrono::high_resolution_clock::now();
-            c.mergeSort(0, c.getSize()-1);
+            c.mergeSort(0, c.getSize() - 1);
             auto end3 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff3 = end3 - start3;
             tmerge += diff3.count();
@@ -374,7 +374,7 @@ void results()
                 r256m = diff4.count(), wr256 = j;
 
             auto start5 = std::chrono::high_resolution_clock::now();
-            e.quickSort(0, e.getSize()-1);
+            e.quickSort(0, e.getSize() - 1);
             auto end5 = std::chrono::high_resolution_clock::now();
             std::chrono::duration<double> diff5 = end5 - start5;
             tquick += diff5.count();
@@ -395,13 +395,13 @@ void results()
 
         }
         out << "CAZUL " << i << '\n';
-        out << std::setprecision(9) << "Radix10: " << tradix10/10 << ' ' << r10m << ' ' << i << '.' << wr10 << '\n';
+        out << std::setprecision(9) << "Radix10: " << tradix10 / 10 << ' ' << r10m << ' ' << i << '.' << wr10 << '\n';
         out << std::setprecision(9) << "Radix256: " << tradix256 / 10 << ' ' << r256m << ' ' << i << '.' << wr256 << '\n';
-        out << std::setprecision(9) << "Shell: " << tshell/10 << ' ' << sm << ' ' << i << '.' << ws << '\n';
-        out << std::setprecision(9) << "Merge: " << tmerge/10 << ' ' << mm << ' ' << i << '.' << wm << '\n';
-        out << std::setprecision(9) << "Quick: " << tquick/10 << ' ' << qm << ' ' << i << '.' << wq << '\n';
+        out << std::setprecision(9) << "Shell: " << tshell / 10 << ' ' << sm << ' ' << i << '.' << ws << '\n';
+        out << std::setprecision(9) << "Merge: " << tmerge / 10 << ' ' << mm << ' ' << i << '.' << wm << '\n';
+        out << std::setprecision(9) << "Quick: " << tquick / 10 << ' ' << qm << ' ' << i << '.' << wq << '\n';
         out << std::setprecision(9) << "Heap: " << theap / 10 << ' ' << hm << ' ' << i << '.' << wh << '\n';
-     
+
     }
     o.close();
     out.close();
